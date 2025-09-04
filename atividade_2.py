@@ -103,3 +103,65 @@ class ArvoreBinariaBusca:
             return self._profundidade(atual.esquerda, valor, nivel + 1)
         else:
             return self._profundidade(atual.direita, valor, nivel + 1)
+        # Visualizar a árvore com graphviz
+    def desenhar(self, nome_arquivo="arvore"):
+        grafo = Digraph(format="png")
+        grafo.attr("node", shape="circle")
+
+        def adicionar_nos(no):
+            if no is None:
+                return
+            grafo.node(str(id(no)), str(no.valor))
+            if no.esquerda:
+                grafo.edge(str(id(no)), str(id(no.esquerda)))
+                adicionar_nos(no.esquerda)
+            if no.direita:
+                grafo.edge(str(id(no)), str(id(no.direita)))
+                adicionar_nos(no.direita)
+
+        adicionar_nos(self.raiz)
+        grafo.render(nome_arquivo, view=True)
+
+
+# ------------------------------
+# Demonstração do funcionamento
+# ------------------------------
+
+if __name__ == "__main__":
+    # Árvore com valores fixos
+    print("==== Árvore com valores fixos ====")
+    valores_fixos = [55, 30, 80, 20, 45, 70, 90]
+    arvore_fixa = ArvoreBinariaBusca()
+    for v in valores_fixos:
+        arvore_fixa.inserir(v)
+
+    arvore_fixa.desenhar("arvore_fixa")
+
+    # Busca
+    print("Busca pelo valor 45:", arvore_fixa.buscar(45) is not None)
+
+    # Remoção
+    print("Removendo o valor 30...")
+    arvore_fixa.remover(30)
+    arvore_fixa.desenhar("arvore_fixa_removida")
+
+    # Nova inserção
+    print("Inserindo o valor 60...")
+    arvore_fixa.inserir(60)
+    arvore_fixa.desenhar("arvore_fixa_inserida")
+
+    # Altura e profundidade
+    print("Altura da árvore:", arvore_fixa.altura())
+    print("Profundidade do nó 45:", arvore_fixa.profundidade(45))
+
+    # Árvore com valores aleatórios
+    print("\n==== Árvore com valores aleatórios ====")
+    numeros_aleatorios = random.sample(range(1, 200), 15)
+    print("Números aleatórios:", numeros_aleatorios)
+
+    arvore_aleatoria = ArvoreBinariaBusca()
+    for n in numeros_aleatorios:
+        arvore_aleatoria.inserir(n)
+
+    arvore_aleatoria.desenhar("arvore_aleatoria")
+    print("Altura da árvore aleatória:", arvore_aleatoria.altura())
