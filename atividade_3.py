@@ -31,3 +31,29 @@ class ArvoreBinariaBusca:
                 atual.direita = No(valor)
             else:
                 self._inserir(atual.direita, valor)
+
+    # -------- Métodos de Travessia --------
+    
+    def inorder(self):
+        return self._inorder(self.raiz)
+
+    def _inorder(self, no):
+        if no is None:
+            return []
+        return self._inorder(no.esquerda) + [no.valor] + self._inorder(no.direita)
+
+    def preorder(self):
+        return self._preorder(self.raiz)
+
+    def _preorder(self, no):
+        if no is None:
+            return []
+        return [no.valor] + self._preorder(no.esquerda) + self._preorder(no.direita)
+
+    def postorder(self):
+        return self._postorder(self.raiz)
+
+    def _postorder(self, no):
+        if no is None:
+            return []
+        return self._postorder(no.esquerda) + self._postorder(no.direita) + [no.valor]
