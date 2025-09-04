@@ -14,6 +14,7 @@ class ArvoreBinariaBusca:
         self.raiz = None
 
     # Inserção de um nó
+    
     def inserir(self, valor):
         if self.raiz is None:
             self.raiz = No(valor)
@@ -100,7 +101,7 @@ if __name__ == "__main__":
     print("Post-Order (Esquerda, Direita, Raiz):", arvore_fixa.postorder())
 
     # Árvore com valores aleatórios
-    
+
     print("\n==== Árvore com valores aleatórios ====")
     numeros_aleatorios = random.sample(range(1, 100), 10)
     print("Números aleatórios:", numeros_aleatorios)
