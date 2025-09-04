@@ -33,7 +33,7 @@ class ArvoreBinariaBusca:
                 self._inserir(atual.direita, valor)
 
     # -------- Métodos de Travessia --------
-    
+
     def inorder(self):
         return self._inorder(self.raiz)
 
@@ -57,3 +57,60 @@ class ArvoreBinariaBusca:
         if no is None:
             return []
         return self._postorder(no.esquerda) + self._postorder(no.direita) + [no.valor]
+    
+    # Visualizar a árvore com graphviz
+    
+    def desenhar(self, nome_arquivo="arvore"):
+        grafo = Digraph(format="png")
+        grafo.attr("node", shape="circle")
+
+        def adicionar_nos(no):
+            if no is None:
+                return
+            grafo.node(str(id(no)), str(no.valor))
+            if no.esquerda:
+                grafo.edge(str(id(no)), str(id(no.esquerda)))
+                adicionar_nos(no.esquerda)
+            if no.direita:
+                grafo.edge(str(id(no)), str(id(no.direita)))
+                adicionar_nos(no.direita)
+
+        adicionar_nos(self.raiz)
+        grafo.render(nome_arquivo, view=True)
+
+
+# ------------------------------
+# Demonstração do funcionamento
+# ------------------------------
+
+if __name__ == "__main__":
+
+    # Árvore com valores fixos
+
+    print("==== Árvore com valores fixos ====")
+    valores_fixos = [55, 30, 80, 20, 45, 70, 90]
+    arvore_fixa = ArvoreBinariaBusca()
+    for v in valores_fixos:
+        arvore_fixa.inserir(v)
+
+    arvore_fixa.desenhar("arvore_fixa_dfs")
+
+    print("In-Order (Esquerda, Raiz, Direita):", arvore_fixa.inorder())
+    print("Pre-Order (Raiz, Esquerda, Direita):", arvore_fixa.preorder())
+    print("Post-Order (Esquerda, Direita, Raiz):", arvore_fixa.postorder())
+
+    # Árvore com valores aleatórios
+    
+    print("\n==== Árvore com valores aleatórios ====")
+    numeros_aleatorios = random.sample(range(1, 100), 10)
+    print("Números aleatórios:", numeros_aleatorios)
+
+    arvore_aleatoria = ArvoreBinariaBusca()
+    for n in numeros_aleatorios:
+        arvore_aleatoria.inserir(n)
+
+    arvore_aleatoria.desenhar("arvore_aleatoria_dfs")
+
+    print("In-Order (Esquerda, Raiz, Direita):", arvore_aleatoria.inorder())
+    print("Pre-Order (Raiz, Esquerda, Direita):", arvore_aleatoria.preorder())
+    print("Post-Order (Esquerda, Direita, Raiz):", arvore_aleatoria.postorder())
