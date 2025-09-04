@@ -3,6 +3,7 @@ from graphviz import Digraph
 
 # Classe para representar um nó da árvore
 
+
 class No:
     def __init__(self, valor, esquerda=None, direita=None):
         self.valor = valor
@@ -11,6 +12,7 @@ class No:
 
 
 # Função recursiva para desenhar a árvore com graphviz
+
 
 def desenhar_arvore(no, grafo=None, pai=None):
     if grafo is None:
@@ -35,6 +37,7 @@ def desenhar_arvore(no, grafo=None, pai=None):
 
 
 # Função para converter uma expressão em árvore
+
 
 def expressao_para_arvore(tokens):
     pilha = []
@@ -68,6 +71,7 @@ def expressao_para_arvore(tokens):
 
 # Função para gerar uma expressão aleatória
 
+
 def gerar_expressao_aleatoria():
     numeros = [str(random.randint(1, 20)) for _ in range(3)]
     op = random.sample(["+", "-", "*", "/"], 2)
@@ -79,9 +83,9 @@ def gerar_expressao_aleatoria():
 
 
 if __name__ == "__main__":
-    
+
     # Expressão fixa
-    
+
     expressao_fixa = "( ( ( 7 + 3 ) * ( 5 - 2 ) ) / ( 10 * 20 ) )"
     tokens_fixos = expressao_fixa.replace("(", " ( ").replace(")", " ) ").split()
     arvore_fixa = expressao_para_arvore(tokens_fixos)
@@ -90,10 +94,12 @@ if __name__ == "__main__":
     grafo1.render("arvore_fixa", view=True)  # Salva e abre a imagem
 
     # Expressão aleatória
-    
+
     expressao_aleatoria = gerar_expressao_aleatoria()
     print("Expressão aleatória:", expressao_aleatoria)
-    tokens_aleatorios = expressao_aleatoria.replace("(", " ( ").replace(")", " ) ").split()
+    tokens_aleatorios = (
+        expressao_aleatoria.replace("(", " ( ").replace(")", " ) ").split()
+    )
     arvore_aleatoria = expressao_para_arvore(tokens_aleatorios)
 
     grafo2 = desenhar_arvore(arvore_aleatoria)

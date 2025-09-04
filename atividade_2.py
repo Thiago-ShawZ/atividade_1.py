@@ -14,7 +14,7 @@ class ArvoreBinariaBusca:
         self.raiz = None
 
     # Inserção de um nó
-    
+
     def inserir(self, valor):
         if self.raiz is None:
             self.raiz = No(valor)
@@ -33,9 +33,8 @@ class ArvoreBinariaBusca:
             else:
                 self._inserir(atual.direita, valor)
 
-    
     # Busca de um valor
-    
+
     def buscar(self, valor):
         return self._buscar(self.raiz, valor)
 
@@ -50,7 +49,7 @@ class ArvoreBinariaBusca:
             return self._buscar(atual.direita, valor)
 
     # Remoção de um nó
-    
+
     def remover(self, valor):
         self.raiz = self._remover(self.raiz, valor)
 
@@ -63,21 +62,21 @@ class ArvoreBinariaBusca:
         elif valor > atual.valor:
             atual.direita = self._remover(atual.direita, valor)
         else:
-            
+
             # Caso 1: nó folha
-            
+
             if atual.esquerda is None and atual.direita is None:
                 return None
-            
+
             # Caso 2: um filho
-            
+
             elif atual.esquerda is None:
                 return atual.direita
             elif atual.direita is None:
                 return atual.esquerda
-            
+
             # Caso 3: dois filhos
-            
+
             else:
                 sucessor = self._minimo(atual.direita)
                 atual.valor = sucessor.valor
@@ -115,7 +114,7 @@ class ArvoreBinariaBusca:
             return self._profundidade(atual.esquerda, valor, nivel + 1)
         else:
             return self._profundidade(atual.direita, valor, nivel + 1)
-        
+
         # Visualizar a árvore com graphviz
 
     def desenhar(self, nome_arquivo="arvore"):

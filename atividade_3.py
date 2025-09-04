@@ -14,7 +14,7 @@ class ArvoreBinariaBusca:
         self.raiz = None
 
     # Inserção de um nó
-    
+
     def inserir(self, valor):
         if self.raiz is None:
             self.raiz = No(valor)
@@ -58,9 +58,9 @@ class ArvoreBinariaBusca:
         if no is None:
             return []
         return self._postorder(no.esquerda) + self._postorder(no.direita) + [no.valor]
-    
+
     # Visualizar a árvore com graphviz
-    
+
     def desenhar(self, nome_arquivo="arvore"):
         grafo = Digraph(format="png")
         grafo.attr("node", shape="circle")
